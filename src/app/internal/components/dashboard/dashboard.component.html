@@ -1,0 +1,44 @@
+<app-page-container *mobxAutorun [headerHeight]="internalStore.headerHeight$">
+  <div class="container-offset" fxLayout="column" fxLayoutGap="8px">
+    <form [formGroup]="emailForm">
+      <mat-form-field appearance="outline">
+        <mat-chip-list #chipList>
+          <mat-chip
+            *ngFor="let receipient of emailForm.get('receipients').value"
+            [selectable]="true"
+            [removable]="true"
+            (removed)="remove(receipient)"
+          >
+            {{ receipient }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="To"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="true"
+            (matChipInputTokenEnd)="add($event)"
+          />
+        </mat-chip-list>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Subject</mat-label>
+        <input matInput formControlName="subject" />
+      </mat-form-field>
+      <ckeditor
+        #ckeditor
+        [config]="ckeConfig"
+        formControlName="htmlEmail"
+      ></ckeditor>
+      <br />
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="send()"
+        [disabled]="!emailForm.get('receipients').value.length || sending"
+      >
+        {{ sending ? 'Sending' : 'Send' }}
+      </button>
+    </form>
+  </div>
+</app-page-container>

@@ -1,0 +1,104 @@
+<app-modal-container>
+  <mat-tab-group color="accent">
+    <mat-tab label="Login">
+      <form [formGroup]="loginForm">
+        <div
+          class="container-offset login-form"
+          fxLayout="column"
+          fxLayoutGap="8px"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              formControlName="password"
+              [type]="lfPasswordVisibile ? 'text' : 'password'"
+            />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              type="button"
+              (click)="lfPasswordVisibile = !lfPasswordVisibile"
+            >
+              <mat-icon>{{
+                lfPasswordVisibile ? 'visibility' : 'visibility_off'
+              }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            color="accent"
+            class="spacer"
+            [disabled]="!loginForm.valid"
+            (click)="login()"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Register">
+      <form [formGroup]="registerForm">
+        <div class="container-offset" fxLayout="column" fxLayoutGap="8px">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              formControlName="password"
+              [type]="rfPasswordVisibile ? 'text' : 'password'"
+            />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              type="button"
+              (click)="rfPasswordVisibile = !rfPasswordVisibile"
+            >
+              <mat-icon>{{
+                rfPasswordVisibile ? 'visibility' : 'visibility_off'
+              }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              formControlName="confirmPassword"
+              [errorStateMatcher]="errorMatcher"
+              type="password"
+              [type]="rfConfirmPasswordVisibile ? 'text' : 'password'"
+            />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              type="button"
+              (click)="rfConfirmPasswordVisibile = !rfConfirmPasswordVisibile"
+            >
+              <mat-icon>{{
+                rfConfirmPasswordVisibile ? 'visibility' : 'visibility_off'
+              }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <button
+            mat-raised-button
+            color="accent"
+            [disabled]="!registerForm.valid"
+            (click)="register()"
+          >
+            Register
+          </button>
+        </div>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</app-modal-container>
